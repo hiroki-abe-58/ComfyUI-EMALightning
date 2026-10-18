@@ -71,7 +71,15 @@ through the real queue on the GPU: the decoded FLAC of `tts_basic` has the same 
 workflows return the same word times. The package's `auto` batch size, measured fresh in this install, was 8 (the development
 environment had measured 128 on the same GPU); for these texts every batch size of 2 or more gives the same audio.
 
-## 6. Tests
+## 6. CI
+
+GitHub Actions (`.github/workflows/ci.yml`), CPU only, ComfyUI v0.38.0 at its pinned commit: Ubuntu 24.04 with Python 3.12 /
+torch 2.14.1 and Python 3.11 / torch 2.8.0, Windows with Python 3.12 / torch 2.14.1. Each job downloads the real model with
+`tools/download_model.py` (SHA-256 checked), runs ruff, a scan for absolute local paths, the tests with the references required and
+the real-queue check. The first run also had a Python 3.10 job, which could not install `ema-lightning` (it requires Python 3.11+);
+the pack now declares Python 3.11+.
+
+## 7. Tests
 
 - `tests/` (CPU, real model): the runtime against the package's own objects for several texts, seeds, speeds and sample rates;
   option validation; the nodes as ComfyUI loads them (ComfyUI's own `validate_prompt` on the shipped workflows, the AUDIO output,
