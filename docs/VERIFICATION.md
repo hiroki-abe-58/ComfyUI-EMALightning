@@ -62,7 +62,16 @@ Both shipped workflows submitted unchanged through `POST /prompt` (`scripts/queu
   words are spoken with the same timing.
 - **Text normalization** lowercases with Turkish rules ("ComfyUI" -> "comfyuı") and turns numbers, times and amounts into words.
 
-## 5. Tests
+## 5. Clean install
+
+Fresh ComfyUI v0.38.0 clone, fresh Python 3.12 virtual environment (torch 2.14.1+cu130, ComfyUI's `requirements.txt`, then this
+pack's `requirements.txt`: ema-lightning 1.1.2, normalizer-tr 0.8.0; huggingface-hub stayed at 2.2.0), `git clone` of this
+repository, `tools/download_model.py --models-dir ComfyUI/models/ema_lightning` (3 files, SHA-256 verified). Both shipped workflows
+through the real queue on the GPU: the decoded FLAC of `tts_basic` has the same samples as the development environment's, and both
+workflows return the same word times. The package's `auto` batch size, measured fresh in this install, was 8 (the development
+environment had measured 128 on the same GPU); for these texts every batch size of 2 or more gives the same audio.
+
+## 6. Tests
 
 - `tests/` (CPU, real model): the runtime against the package's own objects for several texts, seeds, speeds and sample rates;
   option validation; the nodes as ComfyUI loads them (ComfyUI's own `validate_prompt` on the shipped workflows, the AUDIO output,

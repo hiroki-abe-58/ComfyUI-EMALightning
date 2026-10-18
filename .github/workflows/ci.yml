@@ -26,7 +26,7 @@ jobs:
         torchvision: ["0.29.1"]
         include:
           - os: ubuntu-24.04
-            python: "3.10"
+            python: "3.11" # ema-lightning and normalizer-tr need Python 3.11+
             torch: "2.8.0"
             torchvision: "0.23.0"
     runs-on: ${{ matrix.os }}

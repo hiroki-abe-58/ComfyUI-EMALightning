@@ -27,8 +27,9 @@ class EMALightningLoader(io.ComfyNode):
                 io.Combo.Input("device", options=["cuda", "cpu"], default="cuda", tooltip="The CPU also works, about 6x faster than real time."),
                 io.Combo.Input("batch_size", options=list(runtime.BATCH_SIZES), default="auto",
                                tooltip="How many sentences or audio windows the package's scheduler runs at once. auto = the package's "
-                                       "default (measured once per device and cached by the package). The audio can differ very slightly "
-                                       "(about 1e-3) between batch sizes when a text needs more audio windows than the batch holds."),
+                                       "default (measured once per device and cached by the package; the measured value can vary between "
+                                       "installs). The audio can differ very slightly (about 1e-3) between batch sizes when a text needs "
+                                       "more audio windows than the batch holds; pick a fixed size for audio that repeats everywhere."),
                 io.Boolean.Input("lightning", default=False,
                                  tooltip="The package's fast CUDA-graph mode, recorded once per session (minutes the first time). Not "
                                          "bit-identical to the plain path (the package accepts up to 1e-2), and it switches on cuDNN "

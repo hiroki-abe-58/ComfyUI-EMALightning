@@ -37,13 +37,19 @@ Windows 11, RTX 5090, ComfyUI v0.38.0, torch 2.14.1, ema-lightning 1.1.2 (detail
   management loaded); the same holds for the official package alone.
 - **Real ComfyUI queue:** both shipped workflows run; the saved 16-bit FLAC equals the official float audio rounded to 16 bits (largest
   difference half a 16-bit step).
+- **Clean install:** fresh ComfyUI v0.38.0, fresh Python 3.12 environment, `git clone`, `pip install -r requirements.txt`, the model
+  downloaded with `tools/download_model.py` (SHA-256 verified): both workflows give the same audio samples and word times as the
+  development environment.
+- **CI** (GitHub Actions; Ubuntu and Windows; Python 3.11 / torch 2.8.0 and Python 3.12 / torch 2.14.1): the tests and a real
+  ComfyUI queue on the CPU with the real model.
 
 **Not checked:** Linux or macOS with a GPU, AMD / Apple GPUs, the `lightning` mode with a working `torch.compile` (Triton), and speech
 quality against the model card's benchmarks (the pack reproduces the official audio; it does not re-evaluate the model).
 
 ## Install
 
-1. ComfyUI with the V3 node API (**v0.38.0** was used), Python 3.10+. Any NVIDIA GPU or just the CPU (the model is 34 MB).
+1. ComfyUI with the V3 node API (**v0.38.0** was used), Python 3.11+ (required by `ema-lightning` and `normalizer-tr`). Any
+   NVIDIA GPU or just the CPU (the model is 34 MB).
 2. Clone this repository into `ComfyUI/custom_nodes/` and install its requirement (the official package, which brings the Turkish
    normalizer):
 
@@ -72,7 +78,9 @@ quality against the model card's benchmarks (the pack reproduces the official au
 - **batch_size** (Loader): how many sentences or audio windows the package's scheduler runs at once. `auto` is the package's own
   default: it measures the throughput once per device and caches the result in its cache folder (`~/.cache/ema_lightning`, or
   under `XDG_CACHE_HOME`). The audio can differ very slightly between batch sizes (largest seen: 9e-4) when a text needs more audio
-  windows than the batch holds; a batch of 1 differs from all larger ones.
+  windows than the batch holds; a batch of 1 differs from all larger ones. The measured value is not stable: on the same RTX 5090
+  one measurement gave 128 and another (fresh install) 8. For audio that repeats exactly across installs and machines, choose a
+  fixed batch size.
 - **lightning** (Loader, GPU only, off by default): the package's fast mode, recorded once per session. On this Windows machine
   `torch.compile` had no Triton, so the package recorded CUDA graphs without compiling: 190 graphs in 158 s, then a 7.9 s
   announcement in 12 ms. The audio differed from the plain path by up to 6.8e-4 (the package accepts up to 1e-2), so it is not
