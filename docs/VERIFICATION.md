@@ -86,3 +86,9 @@ the pack now declares Python 3.11+.
   Save Audio (Advanced) writing a FLAC); the download manifest; a scan of the package for environment / network / process code.
 - `scripts/ci_queue_check.py`: a stock ComfyUI server on the CPU, both shipped workflows through the queue; the same seed gives the
   same decoded audio, another seed different audio; word times come back; FLAC and MP3 are saved.
+
+## ComfyUI v0.41.0
+
+Since 2026-10-19 the CI also runs the test suite and the real-queue check against ComfyUI v0.41.0 (commit
+`98cc0bf84b7cb1383654c5b402e7612d875d6d22`, Ubuntu 24.04, Python 3.12 / torch 2.14.1), next to v0.38.0, the release the
+real-model checks above used. Both pass.
