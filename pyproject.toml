@@ -1,0 +1,25 @@
+[project]
+name = "ema-lightning-tts"
+description = "EMA Lightning for ComfyUI: small and fast Turkish text-to-speech (8.6M parameters, 48 kHz, numbers and dates read out, word timings), run in-process through the official ema-lightning package. Bit-identical to the official say() on the GPU."
+version = "0.1.0"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+dependencies = ["ema-lightning==1.1.2"]
+
+[project.urls]
+Repository = "https://github.com/hiroki-abe-58/ComfyUI-EMALightning"
+
+[tool.comfy]
+PublisherId = "hiroki-abe-58"
+DisplayName = "EMA Lightning Turkish TTS for ComfyUI"
+Icon = ""
+
+[tool.ruff]
+line-length = 180
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

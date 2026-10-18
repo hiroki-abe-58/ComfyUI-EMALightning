@@ -1,0 +1,6 @@
+{
+  "1": {"class_type": "EMALightningLoader", "inputs": {"model": "ema-lightning", "device": "cuda", "batch_size": "auto", "lightning": false}},
+  "2": {"class_type": "EMALightningSay", "inputs": {"model": ["1", 0], "text": "Merhaba! Bu ses ComfyUI içinde, bilgisayarınızda üretildi. Hiçbir metin ya da ses dışarı gönderilmedi.", "seed": 0, "speed": 1.0, "sample_rate": "48000"}},
+  "3": {"class_type": "SaveAudioAdvanced", "inputs": {"audio": ["2", 0], "filename_prefix": "ema_lightning/tts", "format": "flac"}},
+  "4": {"class_type": "PreviewAny", "inputs": {"source": ["2", 1]}}
+}

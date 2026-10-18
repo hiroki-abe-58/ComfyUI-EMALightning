@@ -1,0 +1,7 @@
+{
+  "1": {"class_type": "EMALightningLoader", "inputs": {"model": "ema-lightning", "device": "cuda", "batch_size": "auto", "lightning": false}},
+  "2": {"class_type": "EMALightningSay", "inputs": {"model": ["1", 0], "text": "Sayın yolcularımız, İstanbul'a gidecek 14:45 hareketli trenimiz 3 numaralı perondan kalkacaktır. Bilet ücreti 1.250 TL'dir.", "seed": 7, "speed": 1.1, "sample_rate": "48000"}},
+  "3": {"class_type": "SaveAudioAdvanced", "inputs": {"audio": ["2", 0], "filename_prefix": "ema_lightning/announcement", "format": "mp3", "format.quality": "V0"}},
+  "4": {"class_type": "PreviewAny", "inputs": {"source": ["2", 1]}},
+  "5": {"class_type": "PreviewAny", "inputs": {"source": ["2", 2]}}
+}
